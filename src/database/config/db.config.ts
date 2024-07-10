@@ -42,4 +42,5 @@ const sequelizeConnection: Sequelize = new Sequelize(getDbUri(), {
 });
 
 
+
 export default sequelizeConnection;
