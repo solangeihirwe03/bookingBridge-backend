@@ -1,4 +1,4 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model} from "sequelize";
 import sequelizeConnection from "../config/db.config";
 import Users from "./user";
 
@@ -10,7 +10,7 @@ export interface SessionAttributes{
     otp: string;
     otpExpiration: Date;
     createdAt: Date;
-    updatedAt: Date
+    updatedAt: Date;
 }
 
 class Sessions extends Model<SessionAttributes> implements SessionAttributes {
@@ -41,19 +41,21 @@ Sessions.init(
         references:{
             model: "users",
             key: "id"
-        }
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
     },
     device: {
         type: DataTypes.STRING(128),
-        allowNull:false
+        allowNull:true
     },
     token: {
-        type: DataTypes.STRING(256),
-        allowNull: true
+        type: DataTypes.STRING(280),
+        allowNull: false
     },
     otp: {
         type: DataTypes.STRING(128),
-        allowNull: false
+        allowNull: true
     },
     otpExpiration: {
         type: DataTypes.DATE(),

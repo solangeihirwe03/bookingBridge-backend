@@ -3,12 +3,14 @@ import { generateToken } from "../../../helpers";
 import authRepo from "../repository/authRepo";
 import { Response, Request } from "express";
 import { sendEmail } from "../../../services/sendEmail";
+import { usersAttributes } from "../../../database/model/user";
 
 const registerUser = async(req:Request, res: Response): Promise<void>=>{
     try{
-        const register = await authRepo.createUser(req.body)
+    const register: usersAttributes = await authRepo.createUser(req.body)
 
     const token = generateToken(register.id)
+    console.log(token)
     const session =  {
         userId: register.id,
         device: req.headers["user-agent"],
@@ -16,7 +18,7 @@ const registerUser = async(req:Request, res: Response): Promise<void>=>{
         otp: null
     }
 
-    const createdSession = await authRepo.createSession(session)
+    await authRepo.createSession(session)
     await sendEmail( register.email, "Email Verification", `Hi there`)
     res.status(httpStatus.CREATED).json({
         status: httpStatus.CREATED,
@@ -32,3 +34,4 @@ const registerUser = async(req:Request, res: Response): Promise<void>=>{
 };
 
 }
+export default {registerUser}

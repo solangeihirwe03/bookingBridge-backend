@@ -44,7 +44,7 @@ export default {
       },
       language: {
         type: new DataTypes.STRING(128),
-        allowNull: false
+        allowNull: true
       },
       role: {
         type: new DataTypes.STRING(128),
@@ -52,10 +52,10 @@ export default {
       },
       isVerified: {
         type: new DataTypes.BOOLEAN(),
-        allowNull: false,
+        allowNull: true,
         defaultValue: false
       },
-      isGoogleaccount: {
+      isGoogleAccount: {
         type: new DataTypes.BOOLEAN(),
         allowNull: true,
         defaultValue: false

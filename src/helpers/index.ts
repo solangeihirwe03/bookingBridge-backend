@@ -1,12 +1,12 @@
 import bcrypt from "bcrypt";
-import {config} from "dotenv";
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken"
 
-config()
+dotenv.config()
 
-const generateToken = async(id: string)=>{
-    return jwt.sign({ id }, process.env.JWT_SECRET || 'bridge')
-}
+const generateToken = (id: string) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET ||"secret");
+  };
 
 const hashPassword = (password: string)=>{
     return bcrypt.hashSync(password, 10);
