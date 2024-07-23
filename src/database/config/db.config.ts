@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { config } from "dotenv";
 import { Sequelize } from "sequelize";
 
@@ -40,7 +41,5 @@ const sequelizeConnection: Sequelize = new Sequelize(getDbUri(), {
   dialectOptions: getDialectOptions(),
   logging: false,
 });
-
-
 
 export default sequelizeConnection;

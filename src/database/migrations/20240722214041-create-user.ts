@@ -2,14 +2,6 @@ import { QueryInterface, DataTypes } from "sequelize"
 
 export default {
   up: async (queryInterface: QueryInterface) => {
-    const [result] = await queryInterface.sequelize.query(
-      "SELECT 1 FROM pg_type WHERE typename = 'enu,_users_gender';"
-    )
-    if (!result.length) {
-      await queryInterface.sequelize.query(
-        "CREATE TYPE \"enum_users_gender\" AS ENUM('male', 'female);"
-      )
-    }
 
     await queryInterface.createTable("users", {
       id:{
@@ -27,15 +19,15 @@ export default {
         allowNull: true
       },
       email: {
-        type: new DataTypes.STRING(129),
-        allowNull: false
-      },
-      password: {
         type: new DataTypes.STRING(128),
         allowNull: false
       },
-      contact: {
-        type: new DataTypes.BIGINT,
+      password: {
+        type: new DataTypes.STRING(255),
+        allowNull: false
+      },
+      phone: {
+        type: new DataTypes.BIGINT(),
         allowNull: true
       },
       profilePicture: {
@@ -47,11 +39,11 @@ export default {
         allowNull: true
       },
       birthDate: {
-        type: new DataTypes.DATE,
+        type: new DataTypes.DATE(),
         allowNull: true
       },
       language: {
-        type: new DataTypes.STRING(50),
+        type: new DataTypes.STRING(128),
         allowNull: false
       },
       role: {
@@ -86,10 +78,7 @@ export default {
     })
 
   },
-  down: async(querInterface : QueryInterface)=>{
-    await querInterface.dropTable("users");
-    await querInterface.sequelize.query(
-      "DROP TYPE IF EXISTS \"enum_users_gender\";"
-    );
+  down: async(queryInterface : QueryInterface)=>{
+    await queryInterface.dropTable("users");
   }
 };

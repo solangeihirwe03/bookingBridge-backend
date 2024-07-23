@@ -1,31 +1,29 @@
 import { QueryInterface, DataTypes } from "sequelize";
-import { down } from "../../../dist/src/databases/migrations/20240710201929-create-sessions";
 
 export default {
-  up: async (queryInterface: QueryInterface) => {
-    await queryInterface.createTable("sessions", {
-      id: {
+  up: async (queryinterface: QueryInterface)=>{
+    await queryinterface.createTable("sessions", {
+      id:{
         type: DataTypes.UUID,
         allowNull: false,
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey:true
       },
       userId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        references: {
+        allowNull: true,
+        references:{
           model: "users",
-          key: "id"
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+          key :"id"
+        }
       },
       device:{
-        type: DataTypes.STRING(280),
-        allowNull: false,
+        type: DataTypes.STRING(256),
+        allowNull: true,
       },
       token: {
-        type: DataTypes.STRING(280)
+        type: DataTypes.STRING(256),
+        allowNull: false
       },
       otp: {
         type: new DataTypes.STRING(280),
@@ -45,10 +43,6 @@ export default {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
       }
-    },
-
-  )},
-  down: async(queryInterface: QueryInterface)=>{
-    await queryInterface.dropTable("sessions")
+    })
   }
 }
