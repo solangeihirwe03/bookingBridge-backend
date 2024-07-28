@@ -74,7 +74,7 @@ const isUserExist = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-const isAccountVerified = async (req:Request, res:Response, next:NextFunction)=>{
+const isAccountVerified = async (req:any, res:Response, next:NextFunction)=>{
     let user : any = null;
 
     if(req.params.token){
@@ -100,7 +100,7 @@ const isAccountVerified = async (req:Request, res:Response, next:NextFunction)=>
 
         })
     }
-
+    req.user = user
     return next()
 }
 

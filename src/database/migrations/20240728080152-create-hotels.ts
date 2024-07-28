@@ -26,7 +26,7 @@ export default{
         allowNull: true
       },
       hotelImage:{
-        type: DataTypes.STRING(256),
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true
       },
       address: {

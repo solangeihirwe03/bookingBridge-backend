@@ -34,6 +34,7 @@ Hotels.init(
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
             allowNull: false
         },
         userId:{
@@ -51,7 +52,7 @@ Hotels.init(
             allowNull: true,
         },
         hotelImage:{
-            type: DataTypes.STRING,
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: true
         },
         address:{
