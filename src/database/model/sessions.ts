@@ -1,8 +1,8 @@
-import { DataTypes, Model} from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelizeConnection from "../config/db.config";
 import Users from "./user";
 
-export interface SessionAttributes{
+export interface SessionAttributes {
     id: string;
     userId: string;
     device: string;
@@ -29,53 +29,53 @@ class Sessions extends Model<SessionAttributes> implements SessionAttributes {
 }
 
 Sessions.init(
-{
-    id:{
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
-    },
-    userId:{
-        type: DataTypes.UUID,
-        allowNull: true,
-        references:{
-            model: "users",
-            key: "id"
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true
         },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
-    },
-    device: {
-        type: DataTypes.STRING(128),
-        allowNull:true
-    },
-    token: {
-        type: DataTypes.STRING(280),
-        allowNull: false
-    },
-    otp: {
-        type: DataTypes.STRING(128),
-        allowNull: true
-    },
-    otpExpiration: {
-        type: DataTypes.DATE(),
-        allowNull: true
-    },
-    createdAt: {
-        type: DataTypes.DATE(),
-        allowNull: true
-    },
-    updatedAt:{
-        type: DataTypes.DATE(),
-        allowNull: true
-    }
+        userId: {
+            type: DataTypes.UUID,
+            allowNull: true,
+            references: {
+                model: "users",
+                key: "id"
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE"
+        },
+        device: {
+            type: DataTypes.STRING(128),
+            allowNull: true
+        },
+        token: {
+            type: DataTypes.STRING(280),
+            allowNull: false
+        },
+        otp: {
+            type: DataTypes.STRING(128),
+            allowNull: true
+        },
+        otpExpiration: {
+            type: DataTypes.DATE(),
+            allowNull: true
+        },
+        createdAt: {
+            type: DataTypes.DATE(),
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE(),
+            allowNull: true
+        }
 
-},
-{
-    sequelize: sequelizeConnection,
-      tableName: "sessions",
-      timestamps: true,
-      modelName: "Session",
-})
+    },
+    {
+        sequelize: sequelizeConnection,
+        tableName: "sessions",
+        timestamps: true,
+        modelName: "Session",
+    })
 
 export default Sessions

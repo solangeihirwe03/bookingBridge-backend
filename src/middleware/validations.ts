@@ -79,8 +79,7 @@ const isAccountVerified = async (req:any, res:Response, next:NextFunction)=>{
 
     if(req.params.token){
         const decodedToken = await decodeToken(req.params.token)
-        console.log(decodedToken)
-        user=  await authRepo.findUserByAttributes("token", decodedToken.id)
+        user=  await authRepo.findUserByAttributes("id", decodedToken.id)
     }
     if(req.body.email){
         user = await authRepo.findUserByAttributes("email", req.body.email)
@@ -100,6 +99,16 @@ const isAccountVerified = async (req:any, res:Response, next:NextFunction)=>{
 
         })
     }
+    const session= await authRepo.findSessionByAttributes("userId", user.id)
+    console.log(session)
+
+    if(!session){
+        return res.status(httpStatus.BAD_REQUEST).json({
+            status: httpStatus.BAD_REQUEST,
+            error: "invalid token"
+        })
+    }
+    req.session = session
     req.user = user
     return next()
 }

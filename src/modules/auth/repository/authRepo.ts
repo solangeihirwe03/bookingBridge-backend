@@ -9,7 +9,11 @@ const createSession = async(body: any)=>{
     return await Sessions.create(body)
 }
 
-const destroySession = async(destroyKey: string, destroyValue: any, key: string, value: string)=>{
+const findSessionByAttributes = async(key: string, value: any)=>{
+    return await Sessions.findOne({where: {[key]: value}})
+}
+
+const destroySession = async(destroyKey: string, destroyValue: any, key: string, value: any)=>{
     return await Sessions.findAll({where:{ [destroyKey]: destroyValue, [key]: value}})
 }
 
@@ -30,5 +34,6 @@ export default {
     createSession, 
     findUserByAttributes, 
     destroySession,
-    updateUserByAttributes
+    updateUserByAttributes,
+    findSessionByAttributes
 }

@@ -21,7 +21,7 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
     }
 
     await authRepo.createSession(session)
-    await sendEmail(register.email, "Email Verification", `${process.env.SERVER_URL_PRO}/api/auth/verify-email/${token}`)
+    await sendEmail(register.email, "Email Verification", `${process.env.SERVER_URL_DEV}/api/auth/verify-email/${token}`)
     res.status(httpStatus.CREATED).json({
       status: httpStatus.CREATED,
       message:
@@ -39,7 +39,7 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
 const emailVerification = async (req: any, res: Response) => {
 
   try {
-    await sendEmail(req.user.email, "Email verification", `${process.env.SERVER_URL_PRO}/api/auth/verify-email/${req.session.token}`)
+    await sendEmail(req.user.email, "Email verification", `${process.env.SERVER_URL_DEV}/api/auth/verify-email/${req.session.token}`)
   } catch (err: any) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
@@ -49,10 +49,11 @@ const emailVerification = async (req: any, res: Response) => {
 }
 
 const verifyEmail = async (req: any, res: Response) => {
-
+  // console.log('Session:', req.session);
+  // console.log('User ID:', req.user.id);
   try {
     await authRepo.destroySession("userId", req.user.id, "token", req.session.token)
-    await authRepo.updateUserByAttributes("id", req.user.id, "isVerified", true)
+    await authRepo.updateUserByAttributes("isVerified", true,"id", req.user.id)
     res.status(httpStatus.OK).json({
       status: httpStatus.OK,
       message: "Account verified successfully, now login"
