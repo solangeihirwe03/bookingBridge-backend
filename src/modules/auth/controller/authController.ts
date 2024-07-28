@@ -58,6 +58,7 @@ const verifyEmail = async (req: any, res: Response) => {
       message: "Account verified successfully, now login"
     })
   } catch (error: any) {
+    console.error('Error verifying email:', error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
       error: error.message

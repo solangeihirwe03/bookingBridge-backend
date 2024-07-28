@@ -79,6 +79,7 @@ const isAccountVerified = async (req:Request, res:Response, next:NextFunction)=>
 
     if(req.params.token){
         const decodedToken = await decodeToken(req.params.token)
+        console.log(decodedToken)
         user=  await authRepo.findUserByAttributes("token", decodedToken.id)
     }
     if(req.body.email){
@@ -103,7 +104,7 @@ const isAccountVerified = async (req:Request, res:Response, next:NextFunction)=>
     return next()
 }
 
-const isUserVerified = async(req:Request, res:Response, next:NextFunction)=>{
+const isUserVerified = async(req:any, res:Response, next:NextFunction)=>{
     let user: usersAttributes | null = null
 
     if(req.body.email){
@@ -121,7 +122,7 @@ const isUserVerified = async(req:Request, res:Response, next:NextFunction)=>{
             error: "Your account is not verified yet"
         })
     }
-
+    req.user = user
     return next()
 }
 

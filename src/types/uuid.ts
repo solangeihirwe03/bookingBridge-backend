@@ -5,11 +5,9 @@ export const userTwoId = uuidv4();
 export const userThreeId = uuidv4();
 export const userFourId = uuidv4();
 export const userFiveId = uuidv4();
-export const userSixId = uuidv4();
-export const userSevenId = uuidv4();
-export const userEightId = uuidv4();
-export const userNineId = uuidv4();
-export const userTenId = uuidv4();
-export const userElevenId = uuidv4();
-export const userTwelveId = uuidv4();
-export const userThirteenId = uuidv4();
+
+export const hotelOneId = uuidv4();
+export const hotelTwoId = uuidv4();
+export const hotelThreeId = uuidv4();
+export const hotelFourId = uuidv4();
+export const hotelFiveId = uuidv4();

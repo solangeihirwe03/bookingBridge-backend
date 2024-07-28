@@ -2,6 +2,7 @@ import { Model, DataTypes, Optional } from "sequelize";
 import sequelizeConnection from "../config/db.config";
 import { hashPassword } from "../../helpers/index";
 import Sessions from "./sessions";
+import Hotels from "./hotels";
 
 export interface usersAttributes {
     id: string;
@@ -43,7 +44,7 @@ export interface usersAttributes {
   
     static associate() {
       Users.hasOne(Sessions, { foreignKey: "userId", as: "sessions" });
-    //   Users.hasOne(Shops, { foreignKey: "userId", as: "shops" });
+      Users.hasMany(Hotels, {foreignKey: "userId", as: "hotels"})
     //   Users.hasMany(Notifications, { foreignKey: "userId", as: "notifications" });
     //   Users.hasMany(SellerRequest, { foreignKey: "userId", as: "sellerRequests" });
     }
