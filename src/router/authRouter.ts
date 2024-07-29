@@ -2,9 +2,11 @@ import { Router } from "express";
 import authController from "../modules/auth/controller/authController";
 import { 
     isAccountVerified,
+    isSessionExist,
     isUserExist,
     isUserVerified,
-    validation 
+    validation, 
+    verifyUser
 } from "../middleware/validations";
 import { credentialSchema } from "../modules/auth/validation/authValidation";
 
@@ -14,6 +16,7 @@ router.post("/register-user",validation(credentialSchema), isUserExist, authCont
 router.post("/email-verification",isAccountVerified, authController.emailVerification)
 router.get("/verify-email/:token",isAccountVerified, authController.verifyEmail)
 router.post("/login-user", isUserVerified, authController.loginUser)
+router.post("/reset-password/:token", verifyUser, isSessionExist, authController.resetPassword)
 
 
 export default router

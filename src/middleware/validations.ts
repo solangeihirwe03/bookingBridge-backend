@@ -3,7 +3,7 @@ import authRepo from "../modules/auth/repository/authRepo";
 import { usersAttributes } from "../database/model/user";
 import httpStatus from "http-status";
 import Joi from "joi";
-import { decodeToken } from "../helpers";
+import { decodeToken, hashPassword } from "../helpers";
 
 const validation = (schema: Joi.ObjectSchema | Joi.ArraySchema): RequestHandler => {
     return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -100,7 +100,6 @@ const isAccountVerified = async (req:any, res:Response, next:NextFunction)=>{
         })
     }
     const session= await authRepo.findSessionByAttributes("userId", user.id)
-    console.log(session)
 
     if(!session){
         return res.status(httpStatus.BAD_REQUEST).json({
@@ -135,9 +134,77 @@ const isUserVerified = async(req:any, res:Response, next:NextFunction)=>{
     return next()
 }
 
+const verifyUser = async (req: any, res: Response, next: NextFunction) => {
+    try {
+      let user: any = null;
+      if (req?.params?.token) {
+        const decodedToken = await decodeToken(req.params.token);
+        user = await authRepo.findUserByAttributes("id", decodedToken.id);
+      }
+      if (req?.body?.email) {
+        user = await authRepo.findUserByAttributes(
+          "email",
+          req.body.email
+        );
+      }
+  
+      if (!user) {
+        return res
+          .status(httpStatus.NOT_FOUND)
+          .json({ status: httpStatus.NOT_FOUND, message: "Account not found." });
+      }
+      if (!user.isVerified) {
+        return res.status(httpStatus.BAD_REQUEST).json({
+          status: httpStatus.BAD_REQUEST,
+          message: "Account is not verified."
+        });
+      }
+  
+      req.user = user;
+      next();
+    } catch (error:any) {
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: error.message
+      });
+    }
+  };
+  
+  const isSessionExist = async (req: any, res: Response, next: NextFunction) => {
+    try {
+      const session = await authRepo.findSessionByAttributes(
+        "userId",
+        req.user.id
+      );
+      if (!session) {
+        return res
+          .status(httpStatus.BAD_REQUEST)
+          .json({ status: httpStatus.BAD_REQUEST, message: "Invalid token." });
+      }
+      const destroy = await authRepo.destroySession(
+        "userId",
+        req.user.id,
+        "token",
+        session.token
+      );
+      if (destroy) {
+        const hashedPassword = await hashPassword(req.body.password);
+        req.user.password = hashedPassword;
+        next();
+      }
+    } catch (error: any) {
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: error.message,
+      });
+    }
+  };
+
 export {
     isUserExist,
     validation,
     isAccountVerified,
-    isUserVerified
+    isUserVerified,
+    verifyUser,
+    isSessionExist
 }

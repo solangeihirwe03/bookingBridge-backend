@@ -37,9 +37,15 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
 }
 
 const emailVerification = async (req: any, res: Response) => {
-
+  console.log(req.user.email)
   try {
     await sendEmail(req.user.email, "Email verification", `${process.env.SERVER_URL_DEV}/api/auth/verify-email/${req.session.token}`)
+    res.status(httpStatus.OK).json(
+      {
+        status: httpStatus.OK,
+        message: "Email verification sent successfully"
+      }
+    )
   } catch (err: any) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
@@ -49,8 +55,6 @@ const emailVerification = async (req: any, res: Response) => {
 }
 
 const verifyEmail = async (req: any, res: Response) => {
-  // console.log('Session:', req.session);
-  // console.log('User ID:', req.user.id);
   try {
     await authRepo.destroySession("userId", req.user.id, "token", req.session.token)
     await authRepo.updateUserByAttributes("isVerified", true,"id", req.user.id)
@@ -90,5 +94,24 @@ const loginUser = async(req: any, res:Response)=>{
   }
 }
 
+const resetPassword = async(req: any, res: Response)=>{
+  try{
+    await authRepo.updateUserByAttributes("password", req.user.password, "id", req.user.id)
+    res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      message: "Password updated successfully"
+    })
+  }catch(error: any){
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      error: error.message
+    })
+  }
+}
 
-export default { registerUser, emailVerification, verifyEmail, loginUser }
+// const forgotPassword = async(req: any, res:Response)=>{
+
+// }
+
+
+export default { registerUser, emailVerification, verifyEmail, loginUser, resetPassword }
