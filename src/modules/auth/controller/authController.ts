@@ -109,9 +109,29 @@ const resetPassword = async(req: any, res: Response)=>{
   }
 }
 
-// const forgotPassword = async(req: any, res:Response)=>{
+const forgotPassword = async(req: any, res:Response)=>{
+    try{
+      const token = generateToken(req.user.id)
+      const session = {
+        userId: req.user.id,
+        device: req.headers["user-device"],
+        token: token,
+        otp: null
+      }
 
-// }
+      await authRepo.createSession(session)
+      await sendEmail(req.user.email, "Reset Password", `${process.env.SERVER_URL_DEV}/api/auth/reset-password/${token}`)
+      res.status(httpStatus.OK).json({
+        status: httpStatus.OK,
+        message: "Password reset successfully"
+      })
+    }catch(error: any){
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        error: error.message
+      })
+    }
+}
 
 
 export default { registerUser, emailVerification, verifyEmail, loginUser, resetPassword }

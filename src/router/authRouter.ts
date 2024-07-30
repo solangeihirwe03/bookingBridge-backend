@@ -16,7 +16,7 @@ router.post("/register-user",validation(credentialSchema), isUserExist, authCont
 router.post("/email-verification",isAccountVerified, authController.emailVerification)
 router.get("/verify-email/:token",isAccountVerified, authController.verifyEmail)
 router.post("/login-user", isUserVerified, authController.loginUser)
-router.post("/reset-password/:token", verifyUser, isSessionExist, authController.resetPassword)
+router.put("/reset-password/:token", verifyUser, isSessionExist, authController.resetPassword)
 
 
 export default router
