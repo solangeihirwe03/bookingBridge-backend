@@ -9,6 +9,7 @@
     "createAllSeeders": "tsc && npx sequelize db:seed:all",
     "deleteAllSeeders": "tsc && npx sequelize db:seed:undo:all",
     "start": "nodemon src/index.ts",
+    "dev": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

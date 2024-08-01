@@ -123,7 +123,7 @@ const forgotPassword = async(req: any, res:Response)=>{
       await sendEmail(req.user.email, "Reset Password", `${process.env.SERVER_URL_DEV}/api/auth/reset-password/${token}`)
       res.status(httpStatus.OK).json({
         status: httpStatus.OK,
-        message: "Password reset successfully"
+        message: "check your email for reset successfully"
       })
     }catch(error: any){
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
@@ -134,4 +134,4 @@ const forgotPassword = async(req: any, res:Response)=>{
 }
 
 
-export default { registerUser, emailVerification, verifyEmail, loginUser, resetPassword }
+export default { registerUser, emailVerification, verifyEmail, loginUser, resetPassword, forgotPassword }

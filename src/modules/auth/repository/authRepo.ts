@@ -29,11 +29,16 @@ const updateUserByAttributes = async (updatedKey: string, updatedValue: any, key
  return findUserByAttributes(key, value)
 }
 
+const findSessionByUserIdAndToken = async(userId: string, token:string)=>{
+    return await Sessions.findOne({where: {token, userId}})
+}
+
 export default {
     createUser,
     createSession, 
     findUserByAttributes, 
     destroySession,
     updateUserByAttributes,
-    findSessionByAttributes
+    findSessionByAttributes,
+    findSessionByUserIdAndToken
 }
