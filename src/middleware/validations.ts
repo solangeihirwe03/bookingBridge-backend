@@ -4,6 +4,7 @@ import { usersAttributes } from "../database/model/user";
 import httpStatus from "http-status";
 import Joi from "joi";
 import { decodeToken, hashPassword } from "../helpers";
+import hotelrepo from "../modules/hotel/repository/hotelrepo";
 
 const validation = (schema: Joi.ObjectSchema | Joi.ArraySchema): RequestHandler => {
     return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -200,11 +201,47 @@ const verifyUser = async (req: any, res: Response, next: NextFunction) => {
     }
   };
 
+  const transformFilesToBody = (req: Request, res: Response, next:NextFunction)=>{
+    if(!req.files){
+      return res.status(httpStatus.BAD_REQUEST).json({
+        status: httpStatus.BAD_REQUEST,
+        error: "Images are required"
+      })
+    }
+    const files = req.files as Express.Multer.File[]
+
+    req.body.hotelImage = files.map((file) => file.path)
+    next()
+  }
+
+  const isHotelExist = async(req: any, res:Response, next:NextFunction)=>{
+    try{
+      const hotel = await hotelrepo.findHotelByAttribute("id",req.body.hotelName)
+
+      if(hotel){
+        return res.status(httpStatus.BAD_REQUEST).json({
+          status: httpStatus.BAD_REQUEST,
+          error: "Hotel already exist"
+        })
+      }
+
+      req.hotels = hotel
+      next();
+    }catch(error:any){
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        error: error.message
+      })
+    }
+  }
+
 export {
     isUserExist,
     validation,
     isAccountVerified,
     isUserVerified,
     verifyUser,
-    isSessionExist
+    isSessionExist,
+    transformFilesToBody,
+    isHotelExist
 }

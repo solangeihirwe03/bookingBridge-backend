@@ -29,6 +29,10 @@ export default{
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true
       },
+      hotelDescription: {
+        type: DataTypes.STRING(280),
+        allowNull: true
+      },
       address: {
         type: DataTypes.JSONB,
         allowNull: true

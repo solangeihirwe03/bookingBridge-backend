@@ -20,6 +20,7 @@ const hotelOne = {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRram_OXJTUPPuf7-3GggamFBY_DrL5Dc9gbAdC-CvtAUyevFEn0a4hsFk-TmB7SbSarks&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdTbYSuoh_fQN4oTIftN7Pnbj_LalqelYBWPy5roEIdmbQDQnIPaxm95eWdP2BVNkQG5Y&usqp=CAU"
   ],
+  hotelDescription: "Enjoy our elegant 40 m² guest rooms, designed in warm beige tones and tailored to the needs of private and business travelers alike. All rooms have a large marble bathroom, a double bed, air conditioning, an additional work area with free internet access and a walk-in closet.",
   address: JSON.stringify({
     street: "123 Main St",
     city: "Kigali",
@@ -45,6 +46,7 @@ const hotelTwo = {
     "https://image-tc.galaxy.tf/wijpeg-8negcq7qypbplf38kcte61txm/hr-dsc-8729.jpg?width=767",
     "https://cdn.audleytravel.com/798/570/79/261974-kigali-serena-hotel-kigali.jpg"
   ],
+  hotelDescription: "Enjoy our elegant 40 m² guest rooms, designed in warm beige tones and tailored to the needs of private and business travelers alike. All rooms have a large marble bathroom, a double bed, air conditioning, an additional work area with free internet access and a walk-in closet.",
   address: JSON.stringify({
     street: "456 Another St",
     city: "Kigali",
@@ -72,6 +74,7 @@ const hotelThree = {
     "https://estateintel.com/assets-ei/2016/07/KGLZH-exterior4-1440.jpg"
 
   ],
+  hotelDescription: "Enjoy our elegant 40 m² guest rooms, designed in warm beige tones and tailored to the needs of private and business travelers alike. All rooms have a large marble bathroom, a double bed, air conditioning, an additional work area with free internet access and a walk-in closet.",
   address: JSON.stringify({
     street: "789 Main Blvd",
     city: "Kigali",
@@ -97,6 +100,7 @@ const hotelFour = {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRram_OXJTUPPuf7-3GggamFBY_DrL5Dc9gbAdC-CvtAUyevFEn0a4hsFk-TmB7SbSarks&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdTbYSuoh_fQN4oTIftN7Pnbj_LalqelYBWPy5roEIdmbQDQnIPaxm95eWdP2BVNkQG5Y&usqp=CAU"
   ],
+  hotelDescription: "Enjoy our elegant 40 m² guest rooms, designed in warm beige tones and tailored to the needs of private and business travelers alike. All rooms have a large marble bathroom, a double bed, air conditioning, an additional work area with free internet access and a walk-in closet.",
   address: JSON.stringify({
     street: "321 Different St",
     city: "Kigali",
@@ -123,6 +127,7 @@ const hotelFive = {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRram_OXJTUPPuf7-3GggamFBY_DrL5Dc9gbAdC-CvtAUyevFEn0a4hsFk-TmB7SbSarks&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdTbYSuoh_fQN4oTIftN7Pnbj_LalqelYBWPy5roEIdmbQDQnIPaxm95eWdP2BVNkQG5Y&usqp=CAU"
   ],
+  hotelDescription: "Enjoy our elegant 40 m² guest rooms, designed in warm beige tones and tailored to the needs of private and business travelers alike. All rooms have a large marble bathroom, a double bed, air conditioning, an additional work area with free internet access and a walk-in closet.",
   address: JSON.stringify({
     street: "111 Some St",
     city: "Kigali",

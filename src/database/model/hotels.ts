@@ -8,6 +8,7 @@ export interface HotelAttributes {
     userId: string,
     hotelName: string,
     hotelImage: string,
+    hotelDescription: string;
     address: string,
     contact: string,
     createdAt: Date,
@@ -19,6 +20,7 @@ class Hotels extends Model<HotelAttributes> implements HotelAttributes {
     declare userId: string;
     declare hotelName: string;
     declare hotelImage: string;
+    declare hotelDescription: string;
     declare address: string;
     declare contact: string;
     declare createdAt: Date;
@@ -53,6 +55,10 @@ Hotels.init(
         },
         hotelImage:{
             type: DataTypes.ARRAY(DataTypes.STRING),
+            allowNull: true
+        },
+        hotelDescription:{
+            type: DataTypes.STRING,
             allowNull: true
         },
         address:{
